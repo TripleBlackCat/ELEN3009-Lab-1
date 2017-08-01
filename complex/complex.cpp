@@ -18,6 +18,7 @@ int main()
     cout << "Or in a more familiar form: " << answer.real() << " + " << answer.imag() << "j" << endl;
 
     // answer++;
+    // the variable answer is not of type: int
 
     return 0;
 }
