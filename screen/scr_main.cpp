@@ -6,20 +6,14 @@ using namespace std;
 
 int main()
 {
-	Screen myScreen{30,32};
+	Screen myScreen{9,9};
 	
-	myScreen.move(1,1);
-	myScreen.set('1');
-	myScreen.up();
-	myScreen.set('2');
-		
-	myScreen.move(30,3);
-	myScreen.set('3');
-	myScreen.down();
-	myScreen.set('4');
-		
+	int x = 3;
+	int y = 3;
+	int sideLength = 3;
+	
+	myScreen.drawSquare(x, y, sideLength);
 	myScreen.display();
 
 	return 0;
 }
-

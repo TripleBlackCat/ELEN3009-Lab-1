@@ -208,5 +208,59 @@ string::size_type Screen::row() const
 	return (_cursor + _width)/_width;
 }
 
+void Screen::drawSquare(int x, int y, int length)
+{
+		
+	
+	if (length == 1)
+	{
+		set('*');
+		return;
+	}
+	
+	if ((x > _width) || (y > _height))
+	{
+		cerr << "The coordinates are OUT OF BOUNDS" << endl;
+		return;
+	}
+	
+	move(y,x);
+
+	if (((x+length) > (_width+1)) || ((y+length) > (_height+1)) )
+	{
+		cerr << "The square is OUT OF BOUNDS" << endl; 
+		return;
+	}
+	
+	
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		forward();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		down();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		back();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		up();
+	}
+	
+	
+	return;
+}
+
 
 

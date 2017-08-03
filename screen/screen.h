@@ -59,6 +59,9 @@ public:
 	void display() const;
 	// check whether the specified co-ordinates lie within the screen
 	bool checkRange(string::size_type row, string::size_type col) const;
+	
+	//Square drawing functioning
+	void drawSquare(int x, int y, int length);
 
 private:
 	// private member functions
