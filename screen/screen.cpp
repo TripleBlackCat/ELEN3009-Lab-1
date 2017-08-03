@@ -45,6 +45,32 @@ void Screen::up()
 	return;
 }
 
+void Screen::move(Direction dir)
+{
+	if (dir == Direction::HOME)
+	{
+		home();
+	}
+	else if (dir == Direction::FORWARD)
+	{
+		forward();
+	}
+	else if (dir == Direction::BACK)
+	{
+		back();
+	}
+	else if (dir == Direction::DOWN)
+	{
+		down();
+	}
+	else if (dir == Direction::END)
+	{
+		end();
+	}
+	
+	return;
+}
+
 void Screen::down()
 {   // move _cursor down one row of screen
 	// do not wrap around
@@ -137,7 +163,7 @@ void Screen::reSize( string::size_type h, string::size_type w, char bkground )
 		string::size_type offset = w * ix; // row position
 		for ( string::size_type iy = 0; iy < _width; ++iy )
 			// for each column, assign the old value
-			_screen.at(offset + iy) = local[ local_pos++ ]; //at looks for the character at the position to return
+			_screen.at(offset + iy) = local[ local_pos++ ]; //at looks for the character at the position to returnx
 	}
 
 	_height = h;
@@ -180,4 +206,6 @@ string::size_type Screen::row() const
 {   // return current row
 	return (_cursor + _width)/_width;
 }
+
+
 

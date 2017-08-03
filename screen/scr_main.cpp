@@ -32,7 +32,12 @@ int main()
 		myScreen.set('*');
 		myScreen.forward();
 	}
-		
+	
+	//Testing enum and overloaded move function
+	myScreen.move(5,1);
+	myScreen.move(Direction::FORWARD);
+	myScreen.set('*');
+	
 	myScreen.display();
 	cout << endl;
 		
