@@ -1,7 +1,7 @@
 #include "screen.h"
 
 // 0 represents the top-left screen element
-const string::size_type TOP_LEFT = 0;
+const string::size_type TOP_LEFT = 0;	//This variable TOP_LEFT cannot be changed
 
 // Screen's constructor
 Screen::Screen(string::size_type height, string::size_type width, char bkground):
@@ -86,7 +86,8 @@ void Screen::set( char ch )
 	return;
 }
 
-void Screen::set( const string& s )
+//The variable s, is passed by reference and the function cannot alter the value
+void Screen::set( const string& s ) 
 {   // write string beginning at current _cursor position
 	auto space = remainingSpace();
 	auto len = s.size();
@@ -136,7 +137,7 @@ void Screen::reSize( string::size_type h, string::size_type w, char bkground )
 		string::size_type offset = w * ix; // row position
 		for ( string::size_type iy = 0; iy < _width; ++iy )
 			// for each column, assign the old value
-			_screen.at(offset + iy) = local[ local_pos++ ];
+			_screen.at(offset + iy) = local[ local_pos++ ]; //at looks for the character at the position to return
 	}
 
 	_height = h;
@@ -146,7 +147,7 @@ void Screen::reSize( string::size_type h, string::size_type w, char bkground )
 	return;
 }
 
-void Screen::display() const
+void Screen::display() const // A const function does not allow the function to modify the object on which they are called
 {
 	for ( string::size_type ix = 0; ix < _height; ++ix )
 	{ // for each row
