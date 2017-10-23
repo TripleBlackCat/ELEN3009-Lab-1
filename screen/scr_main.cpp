@@ -6,28 +6,16 @@ using namespace std;
 
 int main()
 {
-	Screen myScreen{6,6};
-
-	myScreen.forward();
-	myScreen.set('*');
-	myScreen.down();
-	myScreen.set('*');
-	myScreen.move(3,3);
-	myScreen.set("---");
-
-	myScreen.display();
-	cout << endl;
-
-	myScreen.reSize(16,16);
-	myScreen.display();
-	myScreen.clear(' ');
-
-	myScreen.move(7,7);
-	myScreen.set("BIG");
-	myScreen.move(8,5);
-	myScreen.set("SCREEN");
+	Screen myScreen{9,9};
+	
+	int x = 8;
+	int y = 8;
+	int sideLength = 5;
+	
+	myScreen.drawSquare(x, y, sideLength);
 	myScreen.display();
 
+	// Changing the class's interface can be catastrophic as it could change the expected outputs and inputs. It is preferable to only change the implementation. As changing the implementation doesnt change the expected inputs and outputs for functions.
+	
 	return 0;
 }
-

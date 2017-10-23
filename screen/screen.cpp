@@ -1,7 +1,7 @@
 #include "screen.h"
 
 // 0 represents the top-left screen element
-const string::size_type TOP_LEFT = 0;
+const string::size_type TOP_LEFT = 0;	//This variable TOP_LEFT cannot be changed
 
 // Screen's constructor
 Screen::Screen(string::size_type height, string::size_type width, char bkground):
@@ -38,10 +38,36 @@ void Screen::up()
 {   // move _cursor up one row of screen
 	// do not wrap around
 	if ( row() == 1 ) // at top?
-		cerr << "Screen::up - Cannot wrap around in a vertical direction" << endl;
+		_cursor += (_width*_height) - (_width);
 	else
 		_cursor -= _width;
 
+	return;
+}
+
+void Screen::move(Direction dir)
+{
+	if (dir == Direction::HOME)
+	{
+		home();
+	}
+	else if (dir == Direction::FORWARD)
+	{
+		forward();
+	}
+	else if (dir == Direction::BACK)
+	{
+		back();
+	}
+	else if (dir == Direction::DOWN)
+	{
+		down();
+	}
+	else if (dir == Direction::END)
+	{
+		end();
+	}
+	
 	return;
 }
 
@@ -49,7 +75,8 @@ void Screen::down()
 {   // move _cursor down one row of screen
 	// do not wrap around
 	if ( row() == _height ) // at bottom?
-		cerr << "Screen::down - Cannot wrap around in a vertical direction" << endl;
+		
+		_cursor -= (_width*_height) - (_width);
 	else
 		_cursor += _width;
 
@@ -86,7 +113,8 @@ void Screen::set( char ch )
 	return;
 }
 
-void Screen::set( const string& s )
+//The variable s, is passed by reference and the function cannot alter the value
+void Screen::set( const string& s ) 
 {   // write string beginning at current _cursor position
 	auto space = remainingSpace();
 	auto len = s.size();
@@ -136,7 +164,7 @@ void Screen::reSize( string::size_type h, string::size_type w, char bkground )
 		string::size_type offset = w * ix; // row position
 		for ( string::size_type iy = 0; iy < _width; ++iy )
 			// for each column, assign the old value
-			_screen.at(offset + iy) = local[ local_pos++ ];
+			_screen.at(offset + iy) = local[ local_pos++ ]; //at looks for the character at the position to returnx
 	}
 
 	_height = h;
@@ -146,7 +174,7 @@ void Screen::reSize( string::size_type h, string::size_type w, char bkground )
 	return;
 }
 
-void Screen::display() const
+void Screen::display() const // A const function does not allow the function to modify the object on which they are called
 {
 	for ( string::size_type ix = 0; ix < _height; ++ix )
 	{ // for each row
@@ -179,4 +207,60 @@ string::size_type Screen::row() const
 {   // return current row
 	return (_cursor + _width)/_width;
 }
+
+void Screen::drawSquare(int x, int y, int length)
+{
+		
+	
+	if (length == 1)
+	{
+		set('*');
+		return;
+	}
+	
+	if ((x > _width) || (y > _height))
+	{
+		cerr << "The coordinates are OUT OF BOUNDS" << endl;
+		return;
+	}
+	
+	move(y,x);
+
+	if (((x+length) > (_width+1)) || ((y+length) > (_height+1)) )
+	{
+		cerr << "The square is OUT OF BOUNDS" << endl; 
+		return;
+	}
+	
+	
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		forward();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		down();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		back();	
+	}
+	
+	for (int i = 1; i < length; i++)
+	{
+		set('*');
+		up();
+	}
+	
+	
+	return;
+}
+
+
 
